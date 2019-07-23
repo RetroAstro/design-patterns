@@ -4,7 +4,7 @@
 🎉 超简单的设计模式指南！ 🎉
 </p>
 <p align="center">
-设计模式这个话题往往让人感到困惑。在这里我会尝试以<i>最简单<i>的方式来解释它，并且尽量能够让你们熟记于心（也许是我自己）。
+设计模式这个话题往往让人感到困惑。在这里我会尝试以最简单的方式来解释它，并且尽量能够让你们熟记于心（也许是我自己）。
 <br/>
 本文基于 <a href="https://github.com/kamranahmedse/design-patterns-for-humans">"Design patterns for humans"</a>
 </p>
