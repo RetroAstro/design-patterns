@@ -2,42 +2,34 @@
 
 ***
 <p align="center">
-🎉 Ultra-simplified explanation to design patterns! 🎉
+🎉 超简单的设计模式指南！ 🎉
 </p>
 <p align="center">
-A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible. 
+设计模式这个话题往往让人感到困惑。在这里我会尝试以<i>最简单<i>的方式来解释它，并且尽量能够让你们熟记于心（也许是我自己）。
 <br/>
-Based on <a href="https://github.com/kamranahmedse/design-patterns-for-humans">"Design patterns for humans"</a>
+本文基于 <a href="https://github.com/kamranahmedse/design-patterns-for-humans">"Design patterns for humans"</a>
 </p>
 
-***
-
-Follow me on [twitter](https://twitter.com/sohamkamani) and check out my [blog](http://sohamkamani.com)
-
-🚀 Introduction
+🚀 介绍
 =================
 
-Design patterns are solutions to recurring problems **guidelines on how to tackle certain problems**. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations. 
+设计模式是**如何处理某些重复问题**的指南和解决方案。它们并不是类、包或者库等能够集成到你的应用程序中去，更不会在你的应用中产生任何魔法。相反，设计模式是如何在特定情景下解决特定问题的通用指南。
 
-> Design patterns solutions to recurring problems guidelines on how to tackle certain problems
+维基百科是这么解释设计模式的：
 
-Wikipedia describes them as
+> 在[软件工程](https://zh.wikipedia.org/wiki/軟體工程)中，设计模式是对[软件设计](https://zh.wikipedia.org/wiki/軟件設計)中普遍存在（反复出现）的各种问题，所提出的解决方案。设计模式并不直接用来完成[代码](https://zh.wikipedia.org/wiki/%E7%A8%8B%E5%BC%8F%E7%A2%BC)的编写，而是描述在各种不同情况下，要怎么解决问题的一种方案。
 
-> In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations.
-
-⚠️ Be Careful
+⚠️ 注意
 -----------------
-- Design patterns are not a silver bullet to all your problems.
-- Do not try to force them bad things are supposed to happen, if done so. Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems so don't overthink.
-- If used in a correct place in a correct manner, they can prove to be a savior or else they can result in a horrible mess of a code.
+- 设计模式并不是解决问题的银弹。
+- 不要刻意地去使用设计模式，否则可能会带来坏的结果。要记住设计模式是问题的解决方案，而不是发现问题的解决方案，因此不要滥用它们。
+- 如果在正确的地方以正确的方式使用设计模式，它们就会有所帮助。若不是这样，则会让你的代码变得一团糟。
 
 
+## 🐢 在开始之前
 
-
-## 🐢 Before you start
-
-- All design patterns have been implemented in [ES6](https://github.com/lukehoban/es6features), the new version of javascript.
-- Since javascript does not have any implementation of interfaces, the examples here use implied interfaces, which means that as long as a class has attributes and methods that a particular interface is supposed to have, it is considered to implement that interface. To make it easier to tell the interface we are using, its information can be found in the comments of every example.
+- 所有的设计模式都是基于 JavaScript 中最新的 ES6 语法实现。
+- 因为 JavaScript 并没有接口的实现，所以本文中的例子使用的都是隐喻的接口，这意味着，只要一个类具有特定接口应该拥有的属性和方法，那就认为它实现了这个接口。为了更容易地告诉我们正在使用的接口，你可以在每个例子的注释中找到相关的信息。
 
 Types of Design Patterns
 -----------------
@@ -55,14 +47,14 @@ In plain words
 
 Wikipedia says
 > In software engineering, creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
- 
+
  * [Simple Factory](#-simple-factory)
  * [Factory Method](#-factory-method)
  * [Abstract Factory](#-abstract-factory)
  * [Builder](#-builder)
  * [Prototype](#-prototype)
  * [Singleton](#-singleton)
- 
+
 🏠 Simple Factory
 --------------
 Real world example
@@ -131,9 +123,9 @@ In plain words
 
 Wikipedia says
 > In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method—either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes—rather than by calling a constructor.
- 
+
  **Programmatic Example**
- 
+
 Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
 
 ```js
@@ -203,7 +195,7 @@ Real world example
 
 In plain words
 > A factory of factories a factory that groups the individual but related/dependent factories together without specifying their concrete classes. 
-  
+
 Wikipedia says
 > The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
 
@@ -316,12 +308,12 @@ Real world example
 
 In plain words
 > Allows you to create different flavors of an object while avoiding constructor pollution. Useful when there could be several flavors of an object. Or when there are a lot of steps involved in creation of an object.
- 
+
 Wikipedia says
 > The builder pattern is an object creation software design pattern with the intentions of finding a solution to the telescoping constructor anti-pattern.
 
 Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
- 
+
 ```js
 constructor(size, cheese = true, pepperoni = true, tomato = false, lettuce = true) {
     // ... 
@@ -463,7 +455,7 @@ In plain words
 
 Wikipedia says
 > In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
-  
+
  * [Adapter](#-adapter)
  * [Bridge](#-bridge)
  * [Composite](#-composite)
@@ -518,7 +510,7 @@ class Hunter {
 ```
 
 Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
- 
+
 ```js
 // This needs to be added to the game
 class WildDog {
@@ -1558,7 +1550,7 @@ Real world example
 
 In plain words
 > Visitor pattern let's you add further operations to objects without having to modify them.
-    
+
 Wikipedia says
 > In object-oriented programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures. It is one way to follow the open/closed principle.
 
@@ -1661,7 +1653,7 @@ In plain words
 
 Wikipedia says
 > In computer programming, the strategy pattern (also known as the policy pattern) is a behavioural software design pattern that enables an algorithm's behavior to be selected at runtime.
- 
+
 **Programmatic example**
 
 Translating our example from above, we can easily implement this strategy in javascript using its feature of first class functions.
@@ -1681,7 +1673,7 @@ const quickSort = dataset => {
     return dataset
 }
 ```
- 
+
 And then we have our client that is going to use any strategy
 ```js
 const sorter = dataset => {
@@ -1777,10 +1769,10 @@ Real world example
 > - Add roof
 > - Add other floors
 > The order of these steps could never be changed i.e. you can't build the roof before building the walls etc but each of the steps could be modified for example walls can be made of wood or polyester or stone.
-  
+
 In plain words
 > Template method defines the skeleton of how certain algorithm could be performed but defers the implementation of those steps to the children classes.
- 
+
 Wikipedia says
 > In software engineering, the template method pattern is a behavioral design pattern that defines the program skeleton of an algorithm in an operation, deferring some steps to subclasses. It lets one redefine certain steps of an algorithm without changing the algorithm's structure.
 
