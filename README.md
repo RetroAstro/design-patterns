@@ -8,7 +8,7 @@
 <br/>
 本文基于 <a href="https://github.com/kamranahmedse/design-patterns-for-humans">"Design patterns for humans"</a>
 </p>
-  
+
 🚀 介绍
 =================
 
@@ -30,44 +30,50 @@
 - 本文所有的设计模式都是基于 JavaScript 中最新的 ES6 语法实现。
 - 因为 JavaScript 并没有接口的实现，所以本文中的例子使用的都是隐喻的接口，这意味着，只要一个类具有特定接口应该拥有的属性和方法，那就认为它实现了这个接口。为了更容易地告诉我们正在使用的接口，你可以在每个例子的注释中找到相关的信息。
 
-Types of Design Patterns
+设计模式类型
 -----------------
 
-* [Creational](#creational-design-patterns)
-* [Structural](#structural-design-patterns)
-* [Behavioral](#behavioral-design-patterns)
+* [创建型](#creational-design-patterns)
+* [结构型](#structural-design-patterns)
+* [行为型](#behavioral-design-patterns) 
 
 
-Creational Design Patterns
+创建型设计模式
 ==========================
 
-In plain words
-> Creational patterns are focused towards how to instantiate an object or group of related objects.
+简单地来说
 
-Wikipedia says
-> In software engineering, creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
+> 创建型模式专注于如何实例化一个对象或者一组相关的对象。
 
- * [Simple Factory](#-simple-factory)
- * [Factory Method](#-factory-method)
- * [Abstract Factory](#-abstract-factory)
- * [Builder](#-builder)
- * [Prototype](#-prototype)
- * [Singleton](#-singleton)
+维基百科上的解释
 
-🏠 Simple Factory
+> 在软件工程中，创建型模式是处理对象创建的设计模式，试图根据实际情况使用合适的方式创建对象。基本的对象创建方式可能会导致设计上的问题，或增加设计的复杂度。创建型模式通过以某种方式控制对象的创建来解决问题。
+
+ * [简单工厂模式](#-simple-factory)
+ * [工厂方法模式](#-factory-method)
+ * [抽象工厂模式](#-abstract-factory)
+ * [建立者模式](#-builder)
+ * [原型模式](#-prototype)
+ * [单例模式](#-singleton)
+
+🏠 简单工厂模式
 --------------
-Real world example
-> Consider, you are building a house and you need doors. It would be a mess if every time you need a door, you put on your carpenter clothes and start making a door in your house. Instead you get it made from a factory.
+现实生活中的例子
 
-In plain words
-> Simple factory simply generates an instance for client without exposing any instantiation logic to the client
+> 考虑，你正在建造一座房子并且你需要一些门。如果每次当你需要一扇门的时候，你就得穿上木匠的衣服，开始在你的房子里做一扇门，那将会变得一团糟。相反，你可以从工厂中得到它。
 
-Wikipedia says
-> In object-oriented programming (OOP), a factory is an object for creating other objects – formally a factory is a function or method that returns objects of a varying prototype or class from some method call, which is assumed to be "new".
+简单地来说
 
-**Programmatic Example**
+> 简单工厂模式只是生成一个实例，而不会暴露任何实例化的逻辑给客户端。
 
-First of all we have a door interface and the implementation
+维基百科上的解释
+
+> 在面向对象编程 (OOP) 中，工厂是一个用来创建其他对象的对象 - 从形式上来讲工厂是一个函数或者方法，调用它能够返回不同原型或类的对象，而这些对象往往通过 **new** 生成。
+
+**编程示例**
+
+首先我们会创建一个 door 接口并实现这个接口
+
 ```js
 /*
 Door
@@ -92,14 +98,14 @@ class WoodenDoor {
   }
 }
 ```
-Then we have our door factory that makes the door and returns it
+然后我们会创建一个能够制造门并且返回它的 door 工厂
 
 ```js
 const DoorFactory = {
   makeDoor : (width, height) => new WoodenDoor(width, height)
 }
 ```
-And then it can be used as
+最后它可以这样使用
 
 ```js
 const door = DoorFactory.makeDoor(100, 200)
@@ -107,9 +113,9 @@ console.log('Width:', door.getWidth())
 console.log('Height:', door.getHeight())
 ```
 
-**When to Use?**
+**什么时候使用？**
 
-When creating an object is not just a few assignments and involves some logic, it makes sense to put it in a dedicated factory instead of repeating the same code everywhere. 
+当创建一个对象不仅仅是一些赋值和一些逻辑时，将其放在一个专用的工厂而不是到处重复相同的代码，这样的做法往往是有意义的。
 
 🏭 Factory Method
 --------------
