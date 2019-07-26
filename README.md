@@ -117,21 +117,24 @@ console.log('Height:', door.getHeight())
 
 当创建一个对象不仅仅是一些赋值和一些逻辑时，将其放在一个专用的工厂而不是到处重复相同的代码，这样的做法往往是有意义的。
 
-🏭 Factory Method
+🏭 工厂方法模式
 --------------
 
-Real world example
-> Consider the case of a hiring manager. It is impossible for one person to interview for each of the positions. Based on the job opening, she has to decide and delegate the interview steps to different people. 
+现实生活中的例子
 
-In plain words
-> It provides a way to delegate the instantiation logic to child classes. 
+> 让我们以公司的招聘经理为例。要知道一个人不可能充当所有职位的面试官。基于现有的开放职位，招聘经理需要决定并将具体的面试流程下发给专门的面试官。
 
-Wikipedia says
-> In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method—either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes—rather than by calling a constructor.
+简单地来说
 
- **Programmatic Example**
+> 它提供了一种将实例化逻辑委托到子类的方法。
 
-Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
+维基百科上的解释
+
+> 在基于类的编程中，工厂方法模式是一种创建模式，它使用工厂方法来处理创建对象的问题，而无需指定将要创建的对象的确切类。 这是通过调用工厂方法创建对象来完成的 - 在接口中指定并由子类实现，或者在基类中实现并可选地由派生类覆盖 - 而不是通过调用构造函数。
+
+ **编程示例**
+
+让我们以上面的招聘经理为例。首先我们拥有一个面试官的接口以及它的一些实现。
 
 ```js
 /*
@@ -153,7 +156,7 @@ class CommunityExecutive {
 }
 ```
 
-Now let us create our `HiringManager`
+然后让我们来创建招聘经理类
 
 ```js
 class HiringManager {
@@ -164,7 +167,8 @@ class HiringManager {
     }
 }
 ```
-Now any child can extend it and provide the required interviewer
+现在任何子类都可以继承招聘经理类并提供相应的面试官
+
 ```js
 class DevelopmentManager extends HiringManager {
     makeInterviewer() {
@@ -178,7 +182,7 @@ class MarketingManager extends HiringManager {
     }
 }
 ```
-and then it can be used as
+最后它可以这样使用
 
 ```js
 const devManager = new DevelopmentManager()
@@ -188,23 +192,23 @@ const marketingManager = new MarketingManager()
 marketingManager.takeInterview() // Output: Asking about community buildng.
 ```
 
-**When to use?**
+**什么时候使用？**
 
-Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
+当在类中有一些通用逻辑并且所需的子类又是运行时多态的时候。换句话说，当客户端不知道它需要什么样的子类时，就可以使用工厂方法模式。
 
-🔨 Abstract Factory
+🔨 抽象工厂
 ----------------
 
-Real world example
+现实生活中的例子
 > Extending our door example from Simple Factory. Based on your needs you might get a wooden door from a wooden door shop, iron door from an iron shop or a PVC door from the relevant shop. Plus you might need a guy with different kind of specialities to fit the door, for example a carpenter for wooden door, welder for iron door etc. As you can see there is a dependency between the doors now, wooden door needs carpenter, iron door needs a welder etc.
 
-In plain words
+简单地来说
 > A factory of factories a factory that groups the individual but related/dependent factories together without specifying their concrete classes. 
 
-Wikipedia says
+维基百科上的解释
 > The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
 
-**Programmatic Example**
+**编程示例** 
 
 Translating the door example above. First of all we have our `Door` interface and some implementation for it
 
