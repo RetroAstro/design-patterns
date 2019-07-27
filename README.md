@@ -1114,10 +1114,12 @@ door.close() // Closing lab door
 ==========================
 
 简单地来说
-> It is concerned with assignment of responsibilities between the objects. What makes them different from structural patterns is they don't just specify the structure but also outline the patterns for message passing/communication between them. Or in other words, they assist in answering "How to run a behavior in software component?"
+
+> 行为型设计模式与对象间的责任分配有关。与结构型设计模式不同的是，它们不仅指定了结构，同时还概述了对象间消息传递 / 通信的模式。换句话说，它们是如何在软件组件中执行具体操作的解决方案。
 
 维基百科上的解释
-> In software engineering, behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this communication.
+
+> 在软件工程中，行为型设计模式是识别对象之间的共同通信模式并实现这些模式的设计模式。 通过这样做，这些模式增加了执行该通信的灵活性。
 
 * [职责链模式](#-chain-of-responsibility)
 * [命令模式](#-command)
@@ -1130,21 +1132,24 @@ door.close() // Closing lab door
 * [状态模式](#-state)
 * [模版方法模式](#-template-method) 
 
-🔗 Chain of Responsibility
+🔗 职责链模式
 -----------------------
 
-Real world example
-> For example, you have three payment methods (`A`, `B` and `C`) setup in your account each having a different amount in it. `A` has 100 USD, `B` has 300 USD and `C` having 1000 USD and the preference for payments is chosen as `A` then `B` then `C`. You try to purchase something that is worth 210 USD. Using Chain of Responsibility, first of all account `A` will be checked if it can make the purchase, if yes purchase will be made and the chain will be broken. If not, request will move forward to account `B` checking for amount if yes chain will be broken otherwise the request will keep forwarding till it finds the suitable handler. Here `A`, `B` and `C` are links of the chain and the whole phenomenon is Chain of Responsibility.
+现实生活中的例子
 
-In plain words
-> It helps building a chain of objects. Request enters from one end and keeps going from object to object till it finds the suitable handler.
+> 例如，在你的账户中有三种付款方法 ( `A`, `B`, `C` ) ，每种方法都有不同的金额。`A` 中有 100 美元，`B` 中有 300 美元，`C` 中有 1000 美元，但付款的顺序被固定成先 `A` 后 `B` 最后是 `C` 。当你想购买价值为 210 美元的物品时。使用职责链模式，`A` 首先会被检查如果足够用于付款则职责链断开整个过程结束，如果账户余额不足则会将付款请求传递给下一个付款方法直到找到满足要求的方法。在这里 `A`, `B`, `C` 就是链中的环节而整个现象就是一条职责链。
 
-Wikipedia says
-> In object-oriented design, the chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle the rest are passed to the next processing object in the chain.
+简单地来说
 
-**Programmatic Example**
+> 职责链模式用于建立一个对象链。请求从一端进入，并从一个对象进入另一个对象，直到找到合适的处理程序。
 
-Translating our account example above. First of all we have a base account having the logic for chaining the accounts together and some accounts
+维基百科上的解释
+
+> 在面向对象的设计中，职责链模式是一种由命令对象源和一系列处理对象组成的设计模式。 每个处理对象都包含一个逻辑，用于定义它可以处理的命令对象的类型，其余的传递给链中的下一个处理对象。
+
+**编程示例**
+
+让我们以上面的账户付款为例。首先，我们有一个基本帐户，它具有将帐户和一些帐户链接在一起的逻辑。
 
 ```js
 class Account {
@@ -1194,7 +1199,7 @@ class Bitcoin extends Account {
 }
 ```
 
-Now let's prepare the chain using the links defined above (i.e. Bank, Paypal, Bitcoin)
+现在让我们先准备职责链中的链接顺序 ( Bank、PayPal、Bitcoin )
 
 ```js
 // Let's prepare a chain like below
@@ -1221,22 +1226,27 @@ bank.pay(259)
 // Paid 259 using Bitcoin!
 ```
 
-👮 Command
+👮 命令模式
 -------
 
-Real world example
-> A generic example would be you ordering a food at restaurant. You (i.e. `Client`) ask the waiter (i.e. `Invoker`) to bring some food (i.e. `Command`) and waiter simply forwards the request to Chef (i.e. `Receiver`) who has the knowledge of what and how to cook. 
-> Another example would be you (i.e. `Client`) switching on (i.e. `Command`) the television (i.e. `Receiver`) using a remote control (`Invoker`).
+现实生活中的例子
 
-In plain words
-> Allows you to encapsulate actions in objects. The key idea behind this pattern is to provide the means to decouple client from receiver.
+> 一个常见的例子是当你在饭店点餐时，你 ( `Client` ) 让服务员 ( `Invoker` ) 给你一些食物 ( `Command` ) ，服务员会将请求递给会做饭的厨师 ( `Receiver` ) 。
+>
+> 另一个例子是你 ( `Client` ) 可以通过遥控器 ( `Invoker` ) 切换 ( `Command` ) 电视 ( `Receiver` ) 的频道。
 
-Wikipedia says
-> In object-oriented programming, the command pattern is a behavioral design pattern in which an object is used to encapsulate all information needed to perform an action or trigger an event at a later time. This information includes the method name, the object that owns the method and values for the method parameters.
+简单地来说
 
-**Programmatic Example**
+> 命令模式允许您将操作封装在对象中。该模式背后的关键思想是提供将客户端与接收器分离的方法。
 
-First of all we have the receiver that has the implementation of every action that could be performed
+维基百科上的解释
+
+> 在面向对象编程中，命令模式是行为型设计模式，其中对象用于封装执行动作或稍后触发事件所需的所有信息。 此信息包括方法名称，拥有该方法的对象以及方法参数的值。
+
+**编程示例** 
+
+首先我们有一个接收者，它实现了所有可以执行的操作。
+
 ```js
 // Receiver
 class Bulb {
@@ -1249,7 +1259,8 @@ class Bulb {
     }
 }
 ```
-then we have an interface that each of the commands are going to implement and then we have a set of commands
+然后我们有一个每个命令都要实现的 Command 接口，这个接口中包含很多命令。
+
 ```js
 /*
 Command interface :
@@ -1296,7 +1307,8 @@ class TurnOffCommand {
     }
 }
 ```
-Then we have an `Invoker` with whom the client will interact to process any commands
+然后我们有一个调用者 ( `Invoker` ) ，它会接收并执行命令。
+
 ```js
 // Invoker
 class RemoteControl {
@@ -1305,7 +1317,8 @@ class RemoteControl {
     }
 }
 ```
-Finally let's see how we can use it in our client
+最后让我们来看看它该如何使用
+
 ```js
 const bulb = new Bulb()
 
@@ -1317,9 +1330,9 @@ remote.submit(turnOn) // Bulb has been lit!
 remote.submit(turnOff) // Darkness!
 ```
 
-Command pattern can also be used to implement a transaction based system. Where you keep maintaining the history of commands as soon as you execute them. If the final command is successfully executed, all good otherwise just iterate through the history and keep executing the `undo` on all the executed commands. 
+命令模式还可以用来实现基于事务的系统。你可以保留所有执行命令的操作记录，如果最后的命令被成功执行则没有什么大的问题，否则就需要通过迭代历史记录中命令的 `undo` 方法来撤销所有的操作。
 
-➿ Iterator
+➿ 迭代器模式
 --------
 
 Real world example
