@@ -195,7 +195,7 @@ marketingManager.takeInterview() // Output: Asking about community buildng.
 
 当在类中有一些通用逻辑并且所需的子类又是运行时多态的时候。换句话说，当客户端不知道它需要什么样的子类时，就可以使用工厂方法模式。
 
-🔨 抽象工厂
+🔨 抽象工厂模式
 ----------------
 
 现实生活中的例子
@@ -313,18 +313,21 @@ expert.getDescription() // Output: I can only fit iron doors
 
 在创建对象时，含有相关的依赖并且有比较复杂的逻辑时可以使用抽象工厂模式。
 
-👷 Builder
+👷 建造者模式
 --------------------------------------------
-Real world example
-> Imagine you are at Hardee's and you order a specific deal, lets say, "Big Hardee" and they hand it over to you without *any questions* this is the example of simple factory. But there are cases when the creation logic might involve more steps. For example you want a customized Subway deal, you have several options in how your burger is made e.g what bread do you want? what types of sauces would you like? What cheese would you want? etc. In such cases builder pattern comes to the rescue.
+现实生活中的例子
 
-In plain words
-> Allows you to create different flavors of an object while avoiding constructor pollution. Useful when there could be several flavors of an object. Or when there are a lot of steps involved in creation of an object.
+> 假设你在 Hardee's 汉堡店点餐，当你说 “Big Hardee” 时服务员会毫不犹豫地为你递上本店的招牌汉堡，这也是简单工厂模式的做法。但是在某些情况下，创建对象的逻辑可能会包含更多步骤。例如你想要一个定制的汉堡，这时候你会选择面包的类型，酱料的类型以及芝士的类型。这时候建造者模式就能够排上用场了。
 
-Wikipedia says
-> The builder pattern is an object creation software design pattern with the intentions of finding a solution to the telescoping constructor anti-pattern.
+简单地来说
 
-Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
+> 建造者模式允许你创建不同类型的对象同时又能避免构造函数污染。当一个对象可能有多种类型或者在创建对象时会经历很多个步骤的时候该模式很有用。
+
+维基百科上的解释
+
+> 建造者模式是关于对象创建的软件设计模式，目的是为可伸缩构造函数反模式找到相应的解决方案。
+
+既然说到这里，就让我们来了解一下什么是可伸缩构造函数反模式。有些时候我们可能会看到一个构造函数像下面这样：
 
 ```js
 constructor(size, cheese = true, pepperoni = true, tomato = false, lettuce = true) {
@@ -332,11 +335,11 @@ constructor(size, cheese = true, pepperoni = true, tomato = false, lettuce = tru
 }
 ```
 
-As you can see the number of constructor parameters can quickly get out of hand and it might become difficult to understand the arrangement of parameters. Plus this parameter list could keep on growing if you would want to add more options in future. This is called telescoping constructor anti-pattern.
+如你所见构造函数中参数的数量很容易变得不可控制，同时也很难去理解参数的排列。更糟糕的是，未来该构造函数中还可能增加更多的参数。这就叫做可伸缩构造函数反模式。
 
-**Programmatic Example**
+**编程示例**
 
-The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
+明智的选择是使用建造者模式。首先我们来实现 Burger 类。
 
 ```js
 class Burger {
@@ -350,7 +353,7 @@ class Burger {
 }
 ```
 
-And then we have the builder
+然后我们实现 BurgerBuilder 类
 
 ```js
 class BurgerBuilder {
@@ -384,7 +387,7 @@ class BurgerBuilder {
     }
 }
 ```
-And then it can be used as:
+最后它可以这样使用
 
 ```js
 const burger = (new BurgerBuilder(14))
@@ -394,12 +397,12 @@ const burger = (new BurgerBuilder(14))
     .build()
 ```
 
-__Javascript specific tip__ : When you find that the number of arguments to a function or method are too many (normally any more than 2 arguments is considered too much), use a single object argument instead of multiple arguments. This serves two purposes :
+**友情提示：**当你发现一个函数或者方法中的参数太多（通常两个以上）时，用一个对象来替换这些参数往往是更好的选择。这样做有两个好处：
 
-1. It makes your code look less cluttered, since there is only one argument.
-2. You don't have to worry about the order of arguments since arguments are now passed as named properties of the object.
+1. 能够使你的代码看起来不那么混乱，因为现在只有一个参数。
+2. 你不需要担心参数的顺序因为这些参数现在是作为对象的属性传递。
 
-For example : 
+例如：
 
 ```js
 const burger = new Burger({
@@ -411,33 +414,37 @@ const burger = new Burger({
 })
 ```
 
-instead of :
+而不是：
 
 ```
 const burger = new Burger(14, true, false, true, true)
 ```
 
-**When to use?**
+**什么时候使用？**
 
-When there could be several flavors of an object and to avoid the constructor telescoping. The key difference from the factory pattern is that factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
+当一个对象上有多种类型并且还要避免构造函数伸缩问题时可以使用建造者模式。它跟工厂模式的主要差别在于工厂模式创建对象时只经历一个步骤而建造者模式则需要经历多个步骤。
 
 
-💍 Singleton
+💍 单例模式
 ------------
-Real world example
-> There can only be one president of a country at a time. The same president has to be brought to action, whenever duty calls. President here is singleton.
+现实生活中的例子
 
-In plain words
-> Ensures that only one object of a particular class is ever created.
+> 在一个时期一个国家只允许有一位总统。无论什么时候需要履行与国家事务相关的职责，都必须让同一位总统采取行动。在这里总统就相当于单例。
 
-Wikipedia says
-> In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.
+简单地来说
 
-Singleton pattern is actually considered an anti-pattern and overuse of it should be avoided. It is not necessarily bad and could have some valid use-cases but should be used with caution because it introduces a global state in your application and change to it in one place could affect in the other areas and it could become pretty difficult to debug. The other bad thing about them is it makes your code tightly coupled plus it mocking the singleton could be difficult.
+> 确保只创建特定类的一个对象
 
-**Programmatic Example**
+维基百科上的解释
 
-In javascript, singletons can be implemented using the module pattern. Private variables and functions are hidden in a function closure, and public methods are selectively exposed.
+> 在软件工程中，单例模式是一种软件设计模式，它将类的实例化限制为一个对象。 当需要一个对象来协调整个系统的操作时，这非常有用。
+
+单例模式事实上被看作是一种反模式，应该避免过度使用它。虽然它没有那么糟糕并且有其合适的使用场景，但我们也应该谨慎使用该模式，因为它会给你的应用带来全局的状态，在一处进行修改可能会影响其他的很多地方，因此调试就会变得十分困难。
+
+**编程示例**
+
+在 JavaScript 中，单例模式可以用模块模式实现。私有的变量和函数可以在函数闭包中隐藏，公有的方法则会选择性地暴露出去。
+
 ```js
 const president = (function(){
     const presidentsPrivateInformation = 'Super private'
@@ -452,7 +459,7 @@ const president = (function(){
 }())
 ```
 
-Here, `presidentsPrivateInformation` and `name` are kept private. However, `name` can be accessed with the exposed `president.getName` method.
+在这里，`presidentsPrivateInformation` 和 `name` 作为私有变量保存。但只有 `name` 能够通过暴露的 `president.getName` 方法访问。
 
 ```js
 president.getName() // Outputs 'Turd Sandwich'
@@ -460,40 +467,47 @@ president.name // Outputs undefined
 president.presidentsPrivateInformation // Outputs undefined
 ```
 
-Structural Design Patterns
+结构型设计模式
 ==========================
-In plain words
-> Structural patterns are mostly concerned with object composition or in other words how the entities can use each other. Or yet another explanation would be, they help in answering "How to build a software component?"
+简单地来说
 
-Wikipedia says
-> In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
+> 结构型设计模式专注于对象间的组合，换句话说则是实体间如何相互使用。另外一种解释是，它们是如何构建软件组件的解决方案。
 
- * [Adapter](#-adapter)
- * [Bridge](#-bridge)
- * [Composite](#-composite)
- * [Decorator](#-decorator)
- * [Facade](#-facade)
- * [Flyweight](#-flyweight)
- * [Proxy](#-proxy)
+维基百科上的解释
 
-🔌 Adapter
+> 在软件工程中，结构型设计模式是通过找寻实现实体间关系的简单方法来简化设计的设计模式。
+
+ * [适配器模式](#-adapter)
+ * [桥模式](#-bridge)
+ * [组合模式](#-composite)
+ * [装饰器模式](#-decorator)
+ * [外观模式](#-facade)
+ * [享元模式](#-flyweight)
+ * [代理模式](#-proxy) 
+
+🔌 适配器模式
 -------
-Real world example
-> Consider that you have some pictures in your memory card and you need to transfer them to your computer. In order to transfer them you need some kind of adapter that is compatible with your computer ports so that you can attach memory card to your computer. In this case card reader is an adapter.
-> Another example would be the famous power adapter a three legged plug can't be connected to a two pronged outlet, it needs to use a power adapter that makes it compatible with the two pronged outlet.
-> Yet another example would be a translator translating words spoken by one person to another
+现实生活中的例子
 
-In plain words
-> Adapter pattern lets you wrap an otherwise incompatible object in an adapter to make it compatible with another class.
+> 考虑在你的存储卡上有一些图片，你需要把它们传输到你的电脑上。为了传输图片，你需要某种与计算机端口兼容的适配器，以便可以将存储卡附加到计算机上。在这个例子中读卡器就是一个适配器。
+>
+> 另一个例子是著名的电源适配器，很明显一个三个腿的插头不能够接到两个腿的插头上。
+>
+> 再比如翻译官就像是适配器，能够将一个人说的话翻译给另一个人听。
 
-Wikipedia says
-> In software engineering, the adapter pattern is a software design pattern that allows the interface of an existing class to be used as another interface. It is often used to make existing classes work with others without modifying their source code.
+简单地来说
 
-**Programmatic Example**
+> 适配器模式允许你将不兼容的对象包装在适配器中，使其与另一个类兼容。
 
-Consider a game where there is a hunter and he hunts lions.
+维基百科上的解释
 
-First we have an interface `Lion` that all types of lions have to implement
+> 在软件工程中，适配器模式是一种软件设计模式，它允许将现有类的接口用作于另一个接口。 它通常用于使现有类与其他类一起工作而无需修改其源代码。
+
+**编程示例**
+
+考虑现在我们有一个猎人捕猎狮子的游戏。
+
+首先我们有需要被实现的不同类型狮子的 `Lion` 接口。
 
 ```js
 /*
@@ -510,7 +524,8 @@ class AsianLion  {
     roar() {}
 }
 ```
-And hunter expects any implementation of `Lion` interface to hunt.
+猎人期望着捕猎任何实现了 `Lion` 接口的狮子。
+
 ```js
 class Hunter {
     hunt(lion) {
@@ -521,7 +536,7 @@ class Hunter {
 }
 ```
 
-Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
+假如现在游戏中加入了 `WildDog` 类，并且猎人也能对其进行捕猎。由于狗拥有不同类型的接口，所以我们不能直接捕猎它。为让它与我们的猎人兼容，我们需要创建一个具有兼容性的适配器。
 
 ```js
 // This needs to be added to the game
@@ -542,7 +557,7 @@ class WildDogAdapter {
     }
 }
 ```
-And now the `WildDog` can be used in our game using `WildDogAdapter`.
+通过 `WildDogAdapter` 类我们的 `WildDog` 就能够被猎人捕猎。 
 
 ```js
 wildDog = new WildDog()
@@ -552,22 +567,25 @@ hunter = new Hunter()
 hunter.hunt(wildDogAdapter)
 ```
 
-🚡 Bridge
+🚡 桥模式
 ------
-Real world example
-> Consider you have a website with different pages and you are supposed to allow the user to change the theme. What would you do? Create multiple copies of each of the pages for each of the themes or would you just create separate theme and load them based on the user's preferences? Bridge pattern allows you to do the second i.e.
+现实生活中的例子
+
+> 假设你有一个包含不同页面的网站，并且能够让用户改变不同的主题。你会怎样实现该功能？是为每个页面都重复创建不同的主题还是将主题抽离开来并根据用户的设置加载不同的主题？桥模式就能够让你实现第二种方案。
 
 ![With and without the bridge pattern](https://cloud.githubusercontent.com/assets/11269635/23065293/33b7aea0-f515-11e6-983f-98823c9845ee.png)
 
-In Plain Words
-> Bridge pattern is about preferring composition over inheritance. Implementation details are pushed from a hierarchy to another object with a separate hierarchy.
+简单地来说
 
-Wikipedia says
-> The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently"
+> 桥模式更倾向于组合而不是继承。其实现细节从一个层次结构被推到了另一个具有独立层次结构的对象。
 
-**Programmatic Example**
+维基百科上的解释
 
-Translating our WebPage example from above. Here we have the `WebPage` hierarchy
+> 桥模式是软件工程中使用的设计模式，旨在“将抽象与其实现分离，以便两者可以独立变化“。
+
+**编程示例**
+
+以上面的网站页面为例。下面是我们的 `WebPage` 接口
 
 ```js
 /*
@@ -597,7 +615,7 @@ class Careers{
    } 
 }
 ```
-And the separate theme hierarchy
+不同主题的接口
 ```js
 /*
 Theme interface :
@@ -621,7 +639,7 @@ class AquaTheme{
     }
 }
 ```
-And both the hierarchies
+将两个接口组合使用
 ```js
 const darkTheme = new DarkTheme()
 
@@ -632,21 +650,24 @@ console.log(about.getContent() )// "About page in Dark Black"
 console.log(careers.getContent() )// "Careers page in Dark Black"
 ```
 
-🌿 Composite
+🌿 组合模式
 -----------------
 
-Real world example
-> Every organization is composed of employees. Each of the employees has same features i.e. has a salary, has some responsibilities, may or may not report to someone, may or may not have some subordinates etc.
+现实生活中的例子
 
-In plain words
-> Composite pattern lets clients to treat the individual objects in a uniform manner.
+> 每个公司都有很多职员。每个职员都有很多特性比如薪资和工作职责，是否需要向某人汇报，是否有下属等等。
 
-Wikipedia says
-> In software engineering, the composite pattern is a partitioning design pattern. The composite pattern describes that a group of objects is to be treated in the same way as a single instance of an object. The intent of a composite is to "compose" objects into tree structures to represent part-whole hierarchies. Implementing the composite pattern lets clients treat individual objects and compositions uniformly.
+简单地来说
 
-**Programmatic Example**
+> 组合模式允许客户端能够以统一的方式处理单个对象。
 
-Taking our employees example from above. Here we have different employee types
+维基百科上的解释
+
+> 在软件工程中，组合模式是一种分区设计模式。 组合模式描述了一组对象的处理方式与对象的单个实例相同。 组合的意图是将对象“组合”成树结构以表示部分整体层次结构。 通过实现组合模式，客户端可以统一处理单个对象以及对象间的组合。
+
+**编程示例**
+
+让我们以上文的职员为例，假设我们有不同类型的职员。
 
 ```js
 /*
@@ -716,7 +737,7 @@ class Designer {
 }
 ```
 
-Then we have an organization which consists of several different types of employees
+然后我们有一个包含不同类型职员的公司
 
 ```js
 class Organization {
@@ -740,7 +761,7 @@ class Organization {
 }
 ```
 
-And then it can be used as
+最后它可以这样使用
 
 ```js
 // Prepare the employees
@@ -755,22 +776,24 @@ organization.addEmployee(jane)
 console.log("Net salaries: " , organization.getNetSalaries()) // Net Salaries: 22000
 ```
 
-☕ Decorator
+☕ 装饰器模式
 -------------
 
-Real world example
+现实生活中的例子
 
-> Imagine you run a car service shop offering multiple services. Now how do you calculate the bill to be charged? You pick one service and dynamically keep adding to it the prices for the provided services till you get the final cost. Here each type of service is a decorator.
+> 假设你在经营一个提供很多服务的汽车服务商店。你该如何计算相关服务的收取费用？当选择一个服务时就动态地增加相应的费用直到计算出最终的费用。在这里每一项服务就是一个装饰器。
 
-In plain words
-> Decorator pattern lets you dynamically change the behavior of an object at run time by wrapping them in an object of a decorator class.
+简单地来说
 
-Wikipedia says
-> In object-oriented programming, the decorator pattern is a design pattern that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. The decorator pattern is often useful for adhering to the Single Responsibility Principle, as it allows functionality to be divided between classes with unique areas of concern.
+> 装饰器模式允许你在运行时通过将对象包装在装饰器类的对象中动态更改对象的行为。
 
-**Programmatic Example**
+维基百科上的解释
 
-Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
+> 在面向对象编程中，装饰器模式是一种设计模式，它允许将行为静态或动态地添加到单个对象，而不会影响同一类中其他对象的行为。 装饰器模式通常用于遵守单一职责原则，因为它允许在具有独特关注区域的类之间划分功能。
+
+**编程示例**
+
+让我们以制作咖啡为例，首先我们有一个制作简单咖啡的接口。
 
 ```js
 /*
@@ -790,7 +813,8 @@ class SimpleCoffee{
     }
 }
 ```
-We want to make the code extensible to allow options to modify it if required. Lets make some add-ons (decorators)
+我们想让代码变得具有扩展性，以便在需要的时候通过选项更改，让我们新增一些装饰器。
+
 ```js
 class MilkCoffee {
 
@@ -840,7 +864,7 @@ class VanillaCoffee {
 
 ```
 
-Lets make a coffee now
+最后让我们开始制作咖啡
 
 ```js
 let someCoffee
@@ -862,20 +886,24 @@ console.log(someCoffee.getCost())// 20
 console.log(someCoffee.getDescription())// Simple Coffee, milk, whip, vanilla
 ```
 
-📦 Facade
+📦 外观模式
 ----------------
 
-Real world example
-> How do you turn on the computer? "Hit the power button" you say! That is what you believe because you are using a simple interface that computer provides on the outside, internally it has to do a lot of stuff to make it happen. This simple interface to the complex subsystem is a facade.
+现实生活中的例子
 
-In plain words
-> Facade pattern provides a simplified interface to a complex subsystem.
+> 你是如何打开你的电脑的？当然是“按下电源按钮”，因为你使用的是电脑向外面提供的一个简单接口，而整个开机过程在电脑内部则会进行很多复杂的操作。为复杂的子系统提供简单的接口就是一种外观模式。
 
-Wikipedia says
-> A facade is an object that provides a simplified interface to a larger body of code, such as a class library.
+简单地来说
 
-**Programmatic Example**
-Taking our computer example from above. Here we have the computer class
+> 外观模式为复杂的子系统提供了一个简单的接口以便外部使用。
+
+维基百科上的解释
+
+> 外观是一个对象，它为更大的代码体提供了简化的接口，例如类库。
+
+**编程示例**
+
+让我们以打开电脑为例，下面是我们的电脑类
 
 ```js
 class Computer {
@@ -909,7 +937,7 @@ class Computer {
     }
 }
 ```
-Here we have the facade
+这是我们的外观类
 ```js
 class ComputerFacade
 {
@@ -931,27 +959,31 @@ class ComputerFacade
     }
 }
 ```
-Now to use the facade
+最后它可以这样使用
 ```js
 const computer = new ComputerFacade(new Computer())
 computer.turnOn() // Ouch! Beep beep! Loading.. Ready to be used!
 computer.turnOff() // Bup bup buzzz! Haah! Zzzzz
 ```
 
-🍃 Flyweight
+🍃 享元模式
 ---------
 
-Real world example
-> Did you ever have fresh tea from some stall? They often make more than one cup that you demanded and save the rest for any other customer so to save the resources e.g. gas etc. Flyweight pattern is all about that i.e. sharing.
+现实生活中的例子
 
-In plain words
-> It is used to minimize memory usage or computational expenses by sharing as much as possible with similar objects.
+> 你在一些店铺中喝过新鲜的茶吗？他们通常会制作不止一杯你所需要的饮品，然后将剩下的留给其他顾客，这样就可以节省相应的资源比如汽油。享元模式的关键就在于共享。
 
-Wikipedia says
-> In computer programming, flyweight is a software design pattern. A flyweight is an object that minimizes memory use by sharing as much data as possible with other similar objects it is a way to use objects in large numbers when a simple repeated representation would use an unacceptable amount of memory.
+简单地来说
 
-**Programmatic example**
-Translating our tea example from above. First of all we have tea types and tea maker
+> 享元模式通过尽可能多地与相似对象共享数据来最小化内存使用或计算开销。
+
+维基百科上的解释
+
+> 在计算机编程中，享元模式是一种软件设计模式。享元模式是通过与其他相似对象共享尽可能多的数据来最小化内存使用的对象，当简单的重复表示将使用不可接受的内存量时，它是一种使用大量对象的方法。
+
+**编程示例**
+
+让我们以上文的喝茶为例，首先我们有不同类型的茶和制作茶的人。
 
 ```js
 // Anything that will be cached is flyweight. 
@@ -972,7 +1004,7 @@ class TeaMaker {
 }
 ```
 
-Then we have the `TeaShop` which takes orders and serves them
+然后我们有 `TeaShop` 类用来让用户点餐和送餐
 
 ```js
 class TeaShop {
@@ -992,7 +1024,7 @@ class TeaShop {
     }
 }
 ```
-And it can be used as below
+最后它可以这样使用
 
 ```js
 const teaMaker = new TeaMaker()
@@ -1008,19 +1040,23 @@ shop.serve()
 // Serving tea to table# 5
 ```
 
-🎱 Proxy
+🎱 代理模式
 -------------------
-Real world example
-> Have you ever used an access card to go through a door? There are multiple options to open that door i.e. it can be opened either using access card or by pressing a button that bypasses the security. The door's main functionality is to open but there is a proxy added on top of it to add some functionality. Let me better explain it using the code example below.
+现实生活中的例子
 
-In plain words
-> Using the proxy pattern, a class represents the functionality of another class.
+> 你有使用通行证通过一扇门的经历吗？想要打开一扇门可以有很多选择，使用通行证或者输入密码都可以让门打开。门的主要功能是打开，但在它上面有着一层代理，这为门增加了一些其他的功能。
 
-Wikipedia says
-> A proxy, in its most general form, is a class functioning as an interface to something else. A proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes. Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked.
+简单地来说
 
-**Programmatic Example**
-Taking our security door example from above. Firstly we have the door interface and an implementation of door
+> 使用代理模式，一个类就能够表示另一个类的功能。
+
+维基百科上的解释
+
+> 代理以其最一般的形式，是一个充当其他东西的接口的类。 代理是一个包装器或代理对象，客户端正在调用它来访问幕后的真实服务对象。 使用代理可以简单地转发到真实对象，或者可以提供额外的逻辑。 在代理中，可以提供额外的功能，例如当对真实对象的操作是资源密集时的高速缓存，或者在调用对象的操作之前检查先决条件。
+
+**编程示例**
+
+让我们以安全门为例，首先我们有一个 door 类以及它的相关实现。
 
 ```js
 /*
@@ -1040,7 +1076,8 @@ class LabDoor {
     }
 }
 ```
-Then we have a proxy to secure any doors that we want
+然后我们设置一层代理来保护我们向想要保护的门
+
 ```js
 class Security {
     constructor(door) {
@@ -1064,7 +1101,7 @@ class Security {
     }
 }
 ```
-And here is how it can be used
+最后它可以这样使用
 ```js
 const door = new Security(new LabDoor())
 door.open('invalid') // Big no! It ain't possible.
@@ -1073,25 +1110,25 @@ door.open('ecr@t') // Opening lab door
 door.close() // Closing lab door
 ```
 
-Behavioral Design Patterns
+行为型设计模式
 ==========================
 
-In plain words
+简单地来说
 > It is concerned with assignment of responsibilities between the objects. What makes them different from structural patterns is they don't just specify the structure but also outline the patterns for message passing/communication between them. Or in other words, they assist in answering "How to run a behavior in software component?"
 
-Wikipedia says
+维基百科上的解释
 > In software engineering, behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this communication.
 
-* [Chain of Responsibility](#-chain-of-responsibility)
-* [Command](#-command)
-* [Iterator](#-iterator)
-* [Mediator](#-mediator)
-* [Memento](#-memento)
-* [Observer](#-observer)
-* [Visitor](#-visitor)
-* [Strategy](#-strategy)
-* [State](#-state)
-* [Template Method](#-template-method)
+* [职责链模式](#-chain-of-responsibility)
+* [命令模式](#-command)
+* [迭代器模式](#-iterator)
+* [中介者模式](#-mediator)
+* [备忘录模式](#-memento)
+* [观察者模式](#-observer)
+* [访问者模式](#-visitor)
+* [策略模式](#-strategy)
+* [状态模式](#-state)
+* [模版方法模式](#-template-method) 
 
 🔗 Chain of Responsibility
 -----------------------
