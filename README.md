@@ -52,7 +52,7 @@
  * [简单工厂模式](#-simple-factory)
  * [工厂方法模式](#-factory-method)
  * [抽象工厂模式](#-abstract-factory)
- * [建立者模式](#-builder)
+ * [建造者模式](#-builder)
  * [原型模式](#-prototype)
  * [单例模式](#-singleton)
 
@@ -134,7 +134,7 @@ console.log('Height:', door.getHeight())
 
  **编程示例**
 
-让我们以上面的招聘经理为例。首先我们拥有一个面试官的接口以及它的一些实现。
+让我们以上面的招聘经理为例。首先我们拥有一些面试官的接口以及相关的实现。
 
 ```js
 /*
@@ -160,7 +160,6 @@ class CommunityExecutive {
 
 ```js
 class HiringManager {
-        
     takeInterview() {
         const interviewer = this.makeInterviewer()
         interviewer.askQuestions()
@@ -200,17 +199,20 @@ marketingManager.takeInterview() // Output: Asking about community buildng.
 ----------------
 
 现实生活中的例子
-> Extending our door example from Simple Factory. Based on your needs you might get a wooden door from a wooden door shop, iron door from an iron shop or a PVC door from the relevant shop. Plus you might need a guy with different kind of specialities to fit the door, for example a carpenter for wooden door, welder for iron door etc. As you can see there is a dependency between the doors now, wooden door needs carpenter, iron door needs a welder etc.
+
+> 让我们从简单工厂模式中建造门的例子延伸开来。基于实际情况你可能会从木门店买到一扇木门，从造铁厂买到一扇铁门，或者从相关的商店买到一扇 PVC 门。另外，你可能需要不同的专业人士来安装不同的门，例如木匠安装木门，焊接工安装铁门等等。如你所见，现在不同的门都有其不同的依赖，木门需要木匠，铁门需要焊接工等等。
 
 简单地来说
-> A factory of factories a factory that groups the individual but related/dependent factories together without specifying their concrete classes. 
+
+> 嵌套着工厂的工厂类能够将独立但又相互依赖的工厂组合在一起，而不会说明其具体的类。
 
 维基百科上的解释
-> The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
+
+> 抽象工厂模式提供了一种方法来封装一组具有公共主题的独立工厂，而无需指定它们的具体类。
 
 **编程示例** 
 
-Translating the door example above. First of all we have our `Door` interface and some implementation for it
+让我们改造上文建造门的例子。首先我们有 **`Door`** 接口以及相关的实现。
 
 ```js
 /*
@@ -231,7 +233,7 @@ class IronDoor {
     }
 }
 ```
-Then we have some fitting experts for each door type
+然后我们有安装每种门的专家
 
 ```js
 /*
@@ -253,7 +255,8 @@ class Carpenter {
 }
 ```
 
-Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
+现在让我们来实现能够生成一组相关对象的抽象工厂，也就是说，木门工厂能够创建一扇木门还能生成一个木匠用来安装木门，铁门工厂能够创建一扇铁门还能生成一个焊接工来焊接铁门。
+
 ```js
 /*
 DoorFactory interface :
@@ -284,7 +287,7 @@ class IronDoorFactory {
     }
 }
 ```
-And then it can be used as
+最后它可以这样使用
 ```js
 woodenFactory = new WoodenDoorFactory()
 
@@ -304,11 +307,11 @@ door.getDescription()  // Output: I am an iron door
 expert.getDescription() // Output: I can only fit iron doors
 ```
 
-As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
+如你所见木门工厂封装了木匠和木门，铁门工厂封装了铁门和焊接工。这确保了每生成一扇门，都会有对应的人员来安装它，并且不会出错。
 
-**When to use?**
+**什么时候使用？**
 
-When there are interrelated dependencies with not-that-simple creation logic involved
+在创建对象时，含有相关的依赖并且有比较复杂的逻辑时可以使用抽象工厂模式。
 
 👷 Builder
 --------------------------------------------
