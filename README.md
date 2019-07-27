@@ -1235,13 +1235,13 @@ bank.pay(259)
 
 现实生活中的例子
 
-> 一个常见的例子是当你在饭店点餐时，你 ( `Client` ) 让服务员 ( `Invoker` ) 给你一些食物 ( `Command` ) ，服务员会将请求递给会做饭的厨师 ( `Receiver` ) 。
+> 一个常见的例子是当你在饭店点餐时，你 ( `Client` ) 会让服务员 ( `Invoker` ) 给你一些食物 ( `Command` ) ，服务员则会将请求递给会做饭的厨师 ( `Receiver` ) 。
 >
 > 另一个例子是你 ( `Client` ) 可以通过遥控器 ( `Invoker` ) 切换 ( `Command` ) 电视 ( `Receiver` ) 的频道。
 
 简单地来说
 
-> 命令模式允许您将操作封装在对象中。该模式背后的关键思想是提供将客户端与接收器分离的方法。
+> 命令模式允许你将操作封装在对象中。该模式背后的关键思想是提供将客户端与接收者分离的方法。
 
 维基百科上的解释
 
@@ -1263,7 +1263,7 @@ class Bulb {
     }
 }
 ```
-然后我们有一个每个命令都要实现的 Command 接口，这个接口中包含很多命令。
+然后我们有一个每个命令都需要实现的 Command 接口，这个接口中包含着很多命令。
 
 ```js
 /*
@@ -1311,7 +1311,7 @@ class TurnOffCommand {
     }
 }
 ```
-然后我们有一个调用者 ( `Invoker` ) ，它会接收并执行命令。
+下面是我们的调用者 ( `Invoker` ) 类，它会接收并执行命令。
 
 ```js
 // Invoker
@@ -1339,17 +1339,21 @@ remote.submit(turnOff) // Darkness!
 ➿ 迭代器模式
 --------
 
-Real world example
-> An old radio set will be a good example of iterator, where user could start at some channel and then use next or previous buttons to go through the respective channels. Or take an example of MP3 player or a TV set where you could press the next and previous buttons to go through the consecutive channels or in other words they all provide an interface to iterate through the respective channels, songs or radio stations.  
+现实生活中的例子
 
-In plain words
-> It presents a way to access the elements of an object without exposing the underlying presentation.
+> 旧收音机将会是迭代器模式中一个很好的例子，用户可以从某个频道开始，通过按下向前或者向后键按钮来收听不同频道的节目。或者以 MP3 播放器或电视机为例，你可以按下向前或向后键按钮来查看后续的频道，换句话说，它们都提供了一个接口来遍历各个频道、歌曲或者电台。
 
-Wikipedia says
-> In object-oriented programming, the iterator pattern is a design pattern in which an iterator is used to traverse a container and access the container's elements. The iterator pattern decouples algorithms from containers in some cases, algorithms are necessarily container-specific and thus cannot be decoupled.
+简单地来说
 
-**Programmatic example**
- Translating our radio stations example from above. First of all we have `RadioStation`
+> 它提供了一种可以访问对象元素但又不暴露底层表示的方法。
+
+维基百科上的解释
+
+> 在面向对象编程中，迭代器模式是一种设计模式，其中迭代器用于遍历容器并访问容器中的元素。 在某些情况下，迭代器模式将算法与容器分离，算法必然是特定于容器的，因此不能解耦。
+
+**编程示例** 
+
+让我们以电台频道为例，首先我们有一个 `RadioStation` 类。
 
 ```js
 class RadioStation {
@@ -1362,7 +1366,7 @@ class RadioStation {
     }
 }
 ```
-Then we have our iterator
+然后我们有自己的迭代器类
 
 ```js
 class StationList {
@@ -1382,7 +1386,7 @@ class StationList {
     }
 }
 ```
-And then it can be used as
+最后它可以这样使用
 ```js
 const stationList = new StationList()
 
@@ -1397,22 +1401,25 @@ stationList.removeStation(new RadioStation(89)) // Will remove station 89
 ```
 
 👽 中介者模式
-========
+-------
 
-Real world example
-> A general example would be when you talk to someone on your mobile phone, there is a network provider sitting between you and them and your conversation goes through it instead of being directly sent. In this case network provider is mediator. 
+现实生活中的例子
 
-In plain words
-> Mediator pattern adds a third party object (called mediator) to control the interaction between two objects (called colleagues). It helps reduce the coupling between the classes communicating with each other. Because now they don't need to have the knowledge of each other's implementation. 
+> 一个常见的例子是当你在手机上与某人通话时，你和他人的对话信息是通过网络提供商的设备进行传输而不是直接发送。在这个例子中网络提供商就是一个中介者。
 
-Wikipedia says
-> In software engineering, the mediator pattern defines an object that encapsulates how a set of objects interact. This pattern is considered to be a behavioral pattern due to the way it can alter the program's running behavior.
+简单地来说
 
-**Programmatic Example**
+> 中介者模式增加了一个第三方对象（称为中介者）来控制两个对象（称为同事）间的交互。该模式有助于减少两个类间通信的耦合程度。因为现在它们并不需要知道各自内部的实现。
 
-Here is the simplest example of a chat room (i.e. mediator) with users (i.e. colleagues) sending messages to each other. 
+维基百科上的解释
 
-First of all, we have the mediator i.e. the chat room 
+> 在软件工程中，中介者模式定义了一个对象，该对象封装了一组对象的交互方式。 由于它可以改变程序的运行时行为，因此这种模式被认为是一种行为型设计模式。
+
+**编程示例** 
+
+下面是一个最简版的聊天室（中介者），用户（同事）能够通过聊天室向其他用户发送消息。
+
+首先，我们来实现聊天室这个中介者类。
 
 ```js
 // Mediator
@@ -1426,7 +1433,8 @@ class ChatRoom {
 }
 ```
 
-Then we have our users i.e. colleagues
+下面是我们的用户（同事）类
+
 ```js
 class User {
     constructor(name, chatMediator) {
@@ -1443,7 +1451,7 @@ class User {
     }
 }
 ```
-And the usage
+最后它可以这样使用
 ```js
 const mediator = new ChatRoom()
 
@@ -1460,22 +1468,25 @@ jane.send('Hey!')
 
 💾 备忘录模式
 -------
-Real world example
-> Take the example of calculator (i.e. originator), where whenever you perform some calculation the last calculation is saved in memory (i.e. memento) so that you can get back to it and maybe get it restored using some action buttons (i.e. caretaker). 
+现实生活中的例子
 
-In plain words
-> Memento pattern is about capturing and storing the current state of an object in a manner that it can be restored later on in a smooth manner.
+> 让我们以计算器为例，当你在执行一些计算时，最后一次计算的结果总会保存在内存中，这样做是为了方便你回来访问它，当然你也可以通过某些动作按钮来恢复该计算结果。
 
-Wikipedia says
-> The memento pattern is a software design pattern that provides the ability to restore an object to its previous state (undo via rollback).
+简单地来说
 
-Usually useful when you need to provide some sort of undo functionality.
+> 备忘录模式是一种能够捕获并存储当前对象状态的方法，在之后我们能以平稳的方式恢复该对象状态。
 
-**Programmatic Example**
+维基百科上的解释
 
-Lets take an example of text editor which keeps saving the state from time to time and that you can restore if you want.
+> 备忘录模式是一种软件设计模式，它提供了一种将对象恢复到其先前状态的能力（以回滚的方式撤销）。
 
-First of all we have our memento object that will be able to hold the editor state
+通常在需要提供某种撤销功能时该模式非常有用。
+
+**编程示例**
+
+让我们以文字编辑器为例，它能够实时地保存文字状态以便恢复到先前的某个时刻。
+
+首先我们有一个用来保存编辑器状态的备忘录对象。
 
 ```js
 class EditorMemento {
@@ -1489,7 +1500,7 @@ class EditorMemento {
 }
 ```
 
-Then we have our editor i.e. originator that is going to use memento object
+然后我们有一个使用备忘录对象的编辑器
 
 ```js
 class Editor {
@@ -1515,7 +1526,7 @@ class Editor {
 }
 ```
 
-And then it can be used as 
+最后它可以这样使用
 
 ```js
 const editor = new Editor()
@@ -1542,18 +1553,19 @@ console.log(editor.getContent()) // This is the first sentence. This is second.
 😎 观察者模式
 --------
 
-(Otherwise known as _"pub-sub"_)
+（又被称作是“发布-订阅”模式）
 
-Real world example
+现实生活中的例子
+
 > A good example would be the job seekers where they subscribe to some job posting site and they are notified whenever there is a matching job opportunity.   
 
-In plain words
+简单地来说
 > Defines a dependency between objects so that whenever an object changes its state, all its dependents are notified.
 
-Wikipedia says
+维基百科上的解释
 > The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
 
-**Programmatic example**
+**编程示例**
 
 Translating our example from above. First of all we have job seekers that need to be notified for a job posting
 ```js
@@ -1611,16 +1623,16 @@ jobBoard.addJob(JobPost('Software Engineer'))
 
 🏃 访问者模式
 -------
-Real world example
+现实生活中的例子
 > Consider someone visiting Dubai. They just need a way (i.e. visa) to enter Dubai. After arrival, they can come and visit any place in Dubai on their own without having to ask for permission or to do some leg work in order to visit any place here just let them know of a place and they can visit it. Visitor pattern let's you do just that, it helps you add places to visit so that they can visit as much as they can without having to do any legwork.
 
-In plain words
+简单地来说
 > Visitor pattern let's you add further operations to objects without having to modify them.
 
-Wikipedia says
+维基百科上的解释
 > In object-oriented programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures. It is one way to follow the open/closed principle.
 
-**Programmatic example**
+**编程示例**
 
 Let's take an example of a zoo simulation where we have several different kinds of animals and we have to make them Sound. Let's translate this using visitor pattern 
 
@@ -1711,16 +1723,16 @@ dolphin.accept(jump)   // Walked on water a little and disappeared
 💡 策略模式
 --------
 
-Real world example
+现实生活中的例子
 > Consider the example of sorting, we implemented bubble sort but the data started to grow and bubble sort started getting very slow. In order to tackle this we implemented Quick sort. But now although the quick sort algorithm was doing better for large datasets, it was very slow for smaller datasets. In order to handle this we implemented a strategy where for small datasets, bubble sort will be used and for larger, quick sort.
 
-In plain words
+简单地来说
 > Strategy pattern allows you to switch the algorithm or strategy based upon the situation.
 
-Wikipedia says
+维基百科上的例子
 > In computer programming, the strategy pattern (also known as the policy pattern) is a behavioural software design pattern that enables an algorithm's behavior to be selected at runtime.
 
-**Programmatic example**
+**编程示例**
 
 Translating our example from above, we can easily implement this strategy in javascript using its feature of first class functions.
 
@@ -1764,17 +1776,17 @@ sorter2(shortDataSet) // Output : Sorting with bubble sort
 
 💢 状态模式
 -----
-Real world example
+现实生活中的例子
 > Imagine you are using some drawing application, you choose the paint brush to draw. Now the brush changes it's behavior based on the selected color i.e. if you have chosen red color it will draw in red, if blue then it will be in blue etc.  
 
-In plain words
+简单地来说
 > It lets you change the behavior of a class when the state changes.
 
-Wikipedia says
+维基百科上的解释
 > The state pattern is a behavioral software design pattern that implements a state machine in an object-oriented way. With the state pattern, a state machine is implemented by implementing each individual state as a derived class of the state pattern interface, and implementing state transitions by invoking methods defined by the pattern's superclass.
 > The state pattern can be interpreted as a strategy pattern which is able to switch the current strategy through invocations of methods defined in the pattern's interface
 
-**Programmatic example**
+**编程示例**
 
 Let's take an example of text editor, it let's you change the state of text that is typed i.e. if you have selected bold, it starts writing in bold, if italic then in italics etc.
 
@@ -1828,7 +1840,7 @@ editor.type('Fifth line')
 📒 模版方法模式
 ---------------
 
-Real world example
+现实生活中的例子
 > Suppose we are getting some house built. The steps for building might look like 
 > - Prepare the base of house
 > - Build the walls
@@ -1836,13 +1848,13 @@ Real world example
 > - Add other floors
 > The order of these steps could never be changed i.e. you can't build the roof before building the walls etc but each of the steps could be modified for example walls can be made of wood or polyester or stone.
 
-In plain words
+简单地来说
 > Template method defines the skeleton of how certain algorithm could be performed but defers the implementation of those steps to the children classes.
 
-Wikipedia says
+维基百科上的解释
 > In software engineering, the template method pattern is a behavioral design pattern that defines the program skeleton of an algorithm in an operation, deferring some steps to subclasses. It lets one redefine certain steps of an algorithm without changing the algorithm's structure.
 
-**Programmatic Example**
+**编程示例**
 
 Imagine we have a build tool that helps us test, lint, build, generate build reports (i.e. code coverage reports, linting report etc) and deploy our app on the test server.
 
