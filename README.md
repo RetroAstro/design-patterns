@@ -1,3 +1,7 @@
+> 原文地址：https://github.com/sohamkamani/javascript-design-patterns-for-humans
+>
+> 原文作者：[Soham Kamani](https://github.com/sohamkamani) 
+
 ![Design Patterns For Humans](./cover.png)
 
 <p align="center">
@@ -33,9 +37,9 @@
 设计模式类型
 -----------------
 
-* [创建型](#creational-design-patterns)
-* [结构型](#structural-design-patterns)
-* [行为型](#behavioral-design-patterns) 
+* [创建型](#创建型设计模式)
+* [结构型](#结构型设计模式)
+* [行为型](#行为型设计模式) 
 
 
 创建型设计模式
@@ -49,12 +53,12 @@
 
 > 在软件工程中，创建型模式是处理对象创建的设计模式，试图根据实际情况使用合适的方式创建对象。基本的对象创建方式可能会导致设计上的问题，或增加设计的复杂度。创建型模式通过以某种方式控制对象的创建来解决问题。
 
- * [简单工厂模式](#-simple-factory)
- * [工厂方法模式](#-factory-method)
- * [抽象工厂模式](#-abstract-factory)
- * [建造者模式](#-builder)
- * [原型模式](#-prototype)
- * [单例模式](#-singleton)
+ * [简单工厂模式](#简单工厂模式)
+ * [工厂方法模式](#工厂方法模式)
+ * [抽象工厂模式](#抽象工厂模式)
+ * [建造者模式](#建造者模式)
+ * [原型模式](#原型模式)
+ * [单例模式](#单例模式)
 
 🏠 简单工厂模式
 --------------
@@ -397,7 +401,7 @@ const burger = (new BurgerBuilder(14))
     .build()
 ```
 
-**友情提示：**当你发现一个函数或者方法中的参数太多（通常两个以上）时，用一个对象来替换这些参数往往是更好的选择。这样做有两个好处：
+**友情提示：** 当你发现一个函数或者方法中的参数太多（通常两个以上）时，用一个对象来替换这些参数往往是更好的选择。这样做有两个好处：
 
 1. 能够使你的代码看起来不那么混乱，因为现在只有一个参数。
 2. 你不需要担心参数的顺序因为这些参数现在是作为对象的属性传递。
@@ -1121,16 +1125,16 @@ door.close() // Closing lab door
 
 > 在软件工程中，行为型设计模式是识别对象之间的共同通信模式并实现这些模式的设计模式。 通过这样做，这些模式增加了执行该通信的灵活性。
 
-* [职责链模式](#-chain-of-responsibility)
-* [命令模式](#-command)
-* [迭代器模式](#-iterator)
-* [中介者模式](#-mediator)
-* [备忘录模式](#-memento)
-* [观察者模式](#-observer)
-* [访问者模式](#-visitor)
-* [策略模式](#-strategy)
-* [状态模式](#-state)
-* [模版方法模式](#-template-method) 
+* [职责链模式](#职责链模式)
+* [命令模式](#命令模式)
+* [迭代器模式](#迭代器模式)
+* [中介者模式](#中介者模式)
+* [备忘录模式](#备忘录模式)
+* [观察者模式](#观察者模式)
+* [访问者模式](#访问者模式)
+* [策略模式](#策略模式)
+* [状态模式](#状态模式)
+* [模版方法模式](#模版方法模式) 
 
 🔗 职责链模式
 -----------------------
@@ -1330,7 +1334,7 @@ remote.submit(turnOn) // Bulb has been lit!
 remote.submit(turnOff) // Darkness!
 ```
 
-命令模式还可以用来实现基于事务的系统。你可以保留所有执行命令的操作记录，如果最后的命令被成功执行则没有什么大的问题，否则就需要通过迭代历史记录中命令的 `undo` 方法来撤销所有的操作。
+命令模式还可以用来实现基于事务的系统。你可以保留所有执行命令的操作记录，如果最后的命令被成功执行则没有什么大的问题，否则就需要通过迭代并执行历史记录中命令的 `undo` 方法来撤销所有的操作。
 
 ➿ 迭代器模式
 --------
@@ -1392,7 +1396,7 @@ stationList.stations.forEach(station => console.log(station.getFrequency()))
 stationList.removeStation(new RadioStation(89)) // Will remove station 89
 ```
 
-👽 Mediator
+👽 中介者模式
 ========
 
 Real world example
@@ -1454,7 +1458,7 @@ jane.send('Hey!')
 // Feb 14, 10:58 [Jane]: Hey!
 ```
 
-💾 Memento
+💾 备忘录模式
 -------
 Real world example
 > Take the example of calculator (i.e. originator), where whenever you perform some calculation the last calculation is saved in memory (i.e. memento) so that you can get back to it and maybe get it restored using some action buttons (i.e. caretaker). 
@@ -1535,7 +1539,7 @@ editor.restore(saved)
 console.log(editor.getContent()) // This is the first sentence. This is second.
 ```
 
-😎 Observer
+😎 观察者模式
 --------
 
 (Otherwise known as _"pub-sub"_)
@@ -1605,7 +1609,7 @@ jobBoard.addJob(JobPost('Software Engineer'))
 // Jane Doe has been notified of a new posting : Software Engineer
 ```
 
-🏃 Visitor
+🏃 访问者模式
 -------
 Real world example
 > Consider someone visiting Dubai. They just need a way (i.e. visa) to enter Dubai. After arrival, they can come and visit any place in Dubai on their own without having to ask for permission or to do some leg work in order to visit any place here just let them know of a place and they can visit it. Visitor pattern let's you do just that, it helps you add places to visit so that they can visit as much as they can without having to do any legwork.
@@ -1704,7 +1708,7 @@ dolphin.accept(speak)  // Tuut tutt tuutt!
 dolphin.accept(jump)   // Walked on water a little and disappeared
 ```
 
-💡 Strategy
+💡 策略模式
 --------
 
 Real world example
@@ -1758,7 +1762,7 @@ sorter1(longDataSet) // Output : Sorting with quick sort
 sorter2(shortDataSet) // Output : Sorting with bubble sort
 ```
 
-💢 State
+💢 状态模式
 -----
 Real world example
 > Imagine you are using some drawing application, you choose the paint brush to draw. Now the brush changes it's behavior based on the selected color i.e. if you have chosen red color it will draw in red, if blue then it will be in blue etc.  
@@ -1821,7 +1825,7 @@ editor.type('Fifth line')
 // fifth line
 ```
 
-📒 Template Method
+📒 模版方法模式
 ---------------
 
 Real world example
