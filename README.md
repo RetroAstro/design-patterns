@@ -1557,17 +1557,20 @@ console.log(editor.getContent()) // This is the first sentence. This is second.
 
 现实生活中的例子
 
-> A good example would be the job seekers where they subscribe to some job posting site and they are notified whenever there is a matching job opportunity.   
+> 一个合适的例子是，求职者订阅了某个招聘网站，只要有匹配的工作机会，他们就会得到通知。
 
 简单地来说
-> Defines a dependency between objects so that whenever an object changes its state, all its dependents are notified.
+
+> 观察者模式定义了对象之间的依赖关系，当一个对象改变其自身状态时，所有依赖它的对象都会得到通知。
 
 维基百科上的解释
-> The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
+
+> 观察者模式是一种软件设计模式，其中一个称为主体的对象维护其依赖者列表（称为观察者），通过调用主体上的某种方法，任何状态的改变都能够自动通知到所有相关的观察者。
 
 **编程示例**
 
-Translating our example from above. First of all we have job seekers that need to be notified for a job posting
+让我们以求职者找工作为例，首先我们需要创建一个能够收到工作通知的求职者类。
+
 ```js
 const JobPost = title => ({
     title: title
@@ -1583,7 +1586,7 @@ class JobSeeker {
     }
 }
 ```
-Then we have our job postings to which the job seekers will subscribe
+然后我们再创建一个求职者能够订阅求职信息的招聘网站
 ```js
 class JobBoard {
     constructor() {
@@ -1601,7 +1604,7 @@ class JobBoard {
     }
 }
 ```
-Then it can be used as
+最后它可以这样使用
 ```js
 // Create subscribers
 const jonDoe = new JobSeeker('John Doe')
@@ -1624,19 +1627,23 @@ jobBoard.addJob(JobPost('Software Engineer'))
 🏃 访问者模式
 -------
 现实生活中的例子
-> Consider someone visiting Dubai. They just need a way (i.e. visa) to enter Dubai. After arrival, they can come and visit any place in Dubai on their own without having to ask for permission or to do some leg work in order to visit any place here just let them know of a place and they can visit it. Visitor pattern let's you do just that, it helps you add places to visit so that they can visit as much as they can without having to do any legwork.
+
+> 假设某人去迪拜旅游，他需要进入迪拜的签证。在到达迪拜后，他可以独自参观迪拜的任何地方而不需要经过许可或者白费一些跑腿的工作，但前提是让他知道这个地方的位置。访问者模式就能够做到这点，它可以帮助你添加要访问的地点，这样你就能访问尽可能多的地方而不需要做多余的工作。
 
 简单地来说
-> Visitor pattern let's you add further operations to objects without having to modify them.
+
+> 访问者模式能够在不修改对象的前提下为对象添加更多的操作。
 
 维基百科上的解释
-> In object-oriented programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures. It is one way to follow the open/closed principle.
+
+> 在面向对象编程和软件工程中，访问者设计模式是一种将算法与其运行的对象结构分离的方法。 这种分离的实际结果是能够在不修改这些结构的情况下向现有对象结构添加新操作。 这是遵循开放 / 封闭原则的一种方式。
 
 **编程示例**
 
-Let's take an example of a zoo simulation where we have several different kinds of animals and we have to make them Sound. Let's translate this using visitor pattern 
+让我们以动物园为例，在这里有很多种能够发出不同声音的动物。
 
-We have our implementations for the animals
+首先我们来实现动物类：
+
 ```js
 class Monkey {
     shout() {
@@ -1668,7 +1675,7 @@ class Dolphin {
     }
 }
 ```
-Let's implement our visitor
+然后我们来实现访问者类
 ```js
 const speak = {
     visitMonkey(monkey){
@@ -1683,7 +1690,7 @@ const speak = {
 }
 ```
 
-And then it can be used as
+最后它可以这样使用
 ```js
 const monkey = new Monkey()
 const lion = new Lion()
@@ -1693,7 +1700,7 @@ monkey.accept(speak)    // Ooh oo aa aa!
 lion.accept(speak)      // Roaaar!
 dolphin.accept(speak)   // Tuut tutt tuutt!
 ```
-We could have done this simply by having a inheritance hierarchy for the animals but then we would have to modify the animals whenever we would have to add new actions to animals. But now we will not have to change them. For example, let's say we are asked to add the jump behavior to the animals, we can simply add that by creating a new visitor i.e.
+我们本可以直接通过动物类来达到相同的效果，但是如果我们想要向动物类中添加新的动作，就不得不修改动物类内部的方法。通过访问者模式，我们就不必改变动物类。例如，我们想让动物能有跳跃的行为，只需要新增一个访问者类即可。
 
 ```js
 const jump = {
@@ -1708,7 +1715,7 @@ const jump = {
     }
 }
 ```
-And for the usage
+它可以这样使用
 ```js
 monkey.accept(speak)   // Ooh oo aa aa!
 monkey.accept(jump)    // Jumped 20 feet high! on to the tree!
@@ -1724,17 +1731,20 @@ dolphin.accept(jump)   // Walked on water a little and disappeared
 --------
 
 现实生活中的例子
-> Consider the example of sorting, we implemented bubble sort but the data started to grow and bubble sort started getting very slow. In order to tackle this we implemented Quick sort. But now although the quick sort algorithm was doing better for large datasets, it was very slow for smaller datasets. In order to handle this we implemented a strategy where for small datasets, bubble sort will be used and for larger, quick sort.
+
+> 让我们以排序算法为例，冒泡排序算法在数据集较大的情况下会变得低效，因此我们会采取快速排序算法。虽然在数据集较大的情况下快速排序算法表现更好，但它在很小的数据集下却表现不佳。因此我们使用策略模式，在数据集较大时采用快速排序算法，数据集较小时采用冒泡排序算法。
 
 简单地来说
-> Strategy pattern allows you to switch the algorithm or strategy based upon the situation.
+
+> 策略模式能够让你基于具体场景切换不同的算法或者策略。
 
 维基百科上的例子
-> In computer programming, the strategy pattern (also known as the policy pattern) is a behavioural software design pattern that enables an algorithm's behavior to be selected at runtime.
+
+> 在计算机编程中，策略模式是一种行为型设计模式，它可以在运行时选择算法的行为。
 
 **编程示例**
 
-Translating our example from above, we can easily implement this strategy in javascript using its feature of first class functions.
+让我们以上面的排序算法为例，通过 JavaScript 中函数是第一等公民的特性，我们可以轻松地实现策略模式。
 
 ```js
 const bubbleSort = dataset => {
@@ -1752,7 +1762,7 @@ const quickSort = dataset => {
 }
 ```
 
-And then we have our client that is going to use any strategy
+在这里使用不同的策略
 ```js
 const sorter = dataset => {
     if(dataset.length > 5){
@@ -1762,7 +1772,7 @@ const sorter = dataset => {
     }
 }
 ```
-And it can be used as
+最后它可以这样使用
 ```js
 const longDataSet = [1, 5, 4, 3, 2, 8]
 const shortDataSet = [1, 5, 4]
@@ -1777,27 +1787,29 @@ sorter2(shortDataSet) // Output : Sorting with bubble sort
 💢 状态模式
 -----
 现实生活中的例子
-> Imagine you are using some drawing application, you choose the paint brush to draw. Now the brush changes it's behavior based on the selected color i.e. if you have chosen red color it will draw in red, if blue then it will be in blue etc.  
+
+> 假设你正在使用某个画图应用，你选择了画笔来作图。你可以选择不同的颜色来更改画笔原始的颜色。如果你选择了红色，你就能以红色的笔作图，如果你选择了蓝色，你就能以蓝色的笔作图。
 
 简单地来说
-> It lets you change the behavior of a class when the state changes.
+
+> 状态模式能够在状态发生改变时改变类的行为。
 
 维基百科上的解释
-> The state pattern is a behavioral software design pattern that implements a state machine in an object-oriented way. With the state pattern, a state machine is implemented by implementing each individual state as a derived class of the state pattern interface, and implementing state transitions by invoking methods defined by the pattern's superclass.
-> The state pattern can be interpreted as a strategy pattern which is able to switch the current strategy through invocations of methods defined in the pattern's interface
+
+> 状态模式是一种行为型设计模式，它以面向对象的方式实现状态机。 使用状态模式，通过将每个单独的状态实现为状态模式接口的派生类来实现状态机，并通过调用由模式的超类定义的方法来实现状态转换。 状态模式可以解释为一种策略模式，它能够通过调用模式接口中定义的方法来切换当前策略。
 
 **编程示例**
 
-Let's take an example of text editor, it let's you change the state of text that is typed i.e. if you have selected bold, it starts writing in bold, if italic then in italics etc.
+让我们以文本编辑器为例，它能够改变文本的显示状态。如果你选择了粗号字体，文本就会变粗，如果你选择了斜体，文本就会显示为斜体。
 
-First of all we have our transformation functions
+首先我们实现了文字转换的函数
 
 ```js
 const upperCase = inputString => inputString.toUpperCase()
 const lowerCase = inputString => inputString.toLowerCase()
 const defaultTransform = inputString => inputString
 ```
-Then we have our editor
+然后是我们的文本编辑器类
 ```js
 class TextEditor {
     constructor(transform) {
@@ -1813,7 +1825,7 @@ class TextEditor {
     }
 }
 ```
-And then it can be used as
+最后它可以这样使用
 ```js
 const editor = new TextEditor(defaultTransform)
 
@@ -1841,24 +1853,30 @@ editor.type('Fifth line')
 ---------------
 
 现实生活中的例子
-> Suppose we are getting some house built. The steps for building might look like 
-> - Prepare the base of house
-> - Build the walls
-> - Add roof
-> - Add other floors
-> The order of these steps could never be changed i.e. you can't build the roof before building the walls etc but each of the steps could be modified for example walls can be made of wood or polyester or stone.
+
+> 假设我们正在建造一间房子。建造的步骤可能会像下面这样
+>
+> * 准备房子的基础设施
+> * 建造房子的墙
+> * 添加房顶
+> * 添加地板
+>
+> 这些步骤的顺序基本不会改变，因为你不可能在建造房子的墙之前去添加地板，但是每个步骤的具体内容却可以发生改变，比如墙的材质可以由木头、聚酯或者石头制成。
 
 简单地来说
-> Template method defines the skeleton of how certain algorithm could be performed but defers the implementation of those steps to the children classes.
+
+> 模版方法模式定义了如何执行某些算法的框架，但是将这些步骤的实现推迟到了子类。
 
 维基百科上的解释
-> In software engineering, the template method pattern is a behavioral design pattern that defines the program skeleton of an algorithm in an operation, deferring some steps to subclasses. It lets one redefine certain steps of an algorithm without changing the algorithm's structure.
 
-**编程示例**
+> 在软件工程中，模板方法模式是一种行为型设计模式，它定义了操作中算法的程序框架，将一些步骤推迟到子类。 它允许重新定义算法的某些步骤而不改变算法的结构。
 
-Imagine we have a build tool that helps us test, lint, build, generate build reports (i.e. code coverage reports, linting report etc) and deploy our app on the test server.
+**编程示例** 
 
-First of all we have our base class that specifies the skeleton for the build algorithm
+假设我们正在编写一个帮助我们测试、规范、构建、生成构建报告（代码覆盖率, 代码规范）的工具，并且最后它还能将应用部署到测试服务器上。
+
+首先我们来实现一个具有基本框架的构建算法类
+
 ```js
 class Builder {
     // Template method 
@@ -1871,7 +1889,7 @@ class Builder {
 }
 ```
 
-Then we can have our implementations
+然后我们在子类中实现具体的步骤
 
 ```js
 class AndroidBuilder extends Builder {
@@ -1910,7 +1928,7 @@ class IosBuilder extends Builder {
     }
 }
 ```
-And then it can be used as
+最后它可以这样使用
 
 ```js
 const androidBuilder = new AndroidBuilder()
@@ -1932,16 +1950,3 @@ iosBuilder.build()
 // Deploying ios build to server
 ```
 
-## 🚦 Wrap Up Folks
-
-And that about wraps it up. I will continue to improve this, so you might want to watch/star this repository to revisit. Also, I have plans on writing the same about the architectural patterns, stay tuned for it.
-
-## 👬 Contribution
-
-- Report issues
-- Open pull request with improvements
-- Spread the word
-
-## License
-MIT © [Soham Kamani](http://sohamkamani.com)
-Based on ["Design patterns for humans"](https://github.com/kamranahmedse/design-patterns-for-humans) Copyright 2017 Kamran Ahmed
